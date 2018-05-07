@@ -19,4 +19,5 @@ class Led(object):
         return self.__status
     
     def __del__(self):
-        self.off()
+        #self.off()
+        pass
