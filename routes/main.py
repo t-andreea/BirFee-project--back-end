@@ -7,7 +7,7 @@ class MainRoute(MethodView):
     def __init__(self):
         pass
 
-    def _generate_response(cls, input_data=None):
+    def _generate_response(self, input_data=None):
         if input_data is None:
             resp = dict(status=1, content='Method Not Implemented!')
         else:

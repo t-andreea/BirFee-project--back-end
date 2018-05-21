@@ -1,10 +1,9 @@
 from flask import request
 from routes.main import MainRoute
-from modules.led import Led
-import time
+from modules.sensor import Sensor
 
 
-class On(MainRoute):
+class SensorRoute(MainRoute):
 
     def __init__(self):
         super().__init__()
@@ -13,11 +12,9 @@ class On(MainRoute):
         return super()._generate_response(input_data)
 
     def get(self):
-        led = Led(8)
-        led2 = Led(32)
-        led.on()
-        led2.on()
-        return self._generate_response('Led turned on')
+        sensor = Sensor(14)
+        ret = sensor.read()
+        return self._generate_response(ret)
     
     def get_route(self):
-        return '/on'
+        return '/sensor'

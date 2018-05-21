@@ -1,7 +1,6 @@
 from flask import Flask
 
-from routes.on import On
-from routes.off import Off
+from routes.sensor_route import SensorRoute
 from modules.led import Led
 from modules.button import Button
 
@@ -28,21 +27,12 @@ def api():
     app = Flask(__name__)
 
     routes = [
-        On(),
-        Off()
+        SensorRoute()
     ]
 
     for route in routes:
         app.add_url_rule(route.get_route(), view_func=route.as_view(route.get_route()))
     
-    app.run()
-   
-   
-from multiprocessing import Process
+    app.run(host='0.0.0.0', debug=True)
 
-p1 = Process(target=manual)
-p2 = Process(target=api)
-p1.start()
-p2.start()
-p1.join()
-p2.join()
+api()

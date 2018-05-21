@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-import sys
 import Adafruit_DHT
 
 class Sensor:
@@ -10,9 +9,7 @@ class Sensor:
     def read(self):
         humidity, temperature = Adafruit_DHT.read_retry(11, self.pin)
         return_value = dict()
-        return_value['Humidity'] = humidity
-        return_value['Temperature'] = temperature
+        return_value['humidity'] = humidity
+        return_value['temperature'] = temperature
         return return_value
 
-    def destroy():
-        GPIO.cleanup()
