@@ -1,8 +1,9 @@
 import RPi.GPIO as GPIO
 
-class Led(object):
+class Relay(object):
     def __init__(self, pin_number):
         self.__pin = pin_number
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.__pin, GPIO.OUT)
         self.__status = False
 

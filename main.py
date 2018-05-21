@@ -1,6 +1,8 @@
 from flask import Flask
 
 from routes.sensor_route import SensorRoute
+from routes.relay_route import RelayRoute
+
 from modules.led import Led
 from modules.button import Button
 
@@ -27,7 +29,8 @@ def api():
     app = Flask(__name__)
 
     routes = [
-        SensorRoute()
+        SensorRoute(),
+	RelayRoute()
     ]
 
     for route in routes:
