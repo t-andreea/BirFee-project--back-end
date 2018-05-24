@@ -1,10 +1,10 @@
+# import RPi.GPIO as GPIO
 from flask import Flask
-
 from routes.sensor_route import SensorRoute
 from routes.relay_route import RelayRoute
-
 from modules.led import Led
 from modules.button import Button
+
 
 def manual():
     led = Led(8)
@@ -38,4 +38,5 @@ def api():
     
     app.run(host='0.0.0.0', debug=True)
 
+# GPIO.cleanup()
 api()

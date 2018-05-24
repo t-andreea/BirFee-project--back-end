@@ -16,6 +16,7 @@ class MainRoute(MethodView):
             resp.headers['Access-Control-Allow-Origin'] = "*"
             resp.headers['Access-Control-Allow-Headers'] = "Origin, Content-Type, Authorization, X-Auth-Token" #tipuri de date
             resp.headers['Access-Control-Allow-Methods'] = "POST, GET, DELETE, PUT, PATCH, HEAD, OPTIONS" #metode
+            resp.headers['Access-Control-Allow-Credentials'] = "true"
         return resp
 
     def get(self):
