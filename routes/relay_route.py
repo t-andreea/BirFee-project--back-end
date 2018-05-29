@@ -1,6 +1,7 @@
 from flask import request
 from routes.main import MainRoute
 from modules.relay import Relay
+from modules.led import Led
 
 
 class RelayRoute(MainRoute):
@@ -20,11 +21,14 @@ class RelayRoute(MainRoute):
 
     def post(self):
         rel = Relay.get_instance(12)
+        led = Led(36)
         act = request.form['action']
         if act=='on':
             rel.on()
+            led.on()
         else:
             rel.off()
+            led.off()
         return self._generate_response('The relay is ' + act)
     
     def get_route(self):

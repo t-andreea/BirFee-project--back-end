@@ -1,30 +1,29 @@
 # import RPi.GPIO as GPIO
+import threading
 from flask import Flask
 from routes.sensor_route import SensorRoute
 from routes.relay_route import RelayRoute
+from modules.relay import Relay
 from modules.led import Led
 from modules.button import Button
 
 
 def manual():
-    led = Led(8)
-    led2 = Led(32)
-    button = Button(36)
+    led = Led(36)
+    button = Button(37)
+    rel = Relay.get_instance(12)
+    while True:
+        value = button.multi_checked(Led(7))
+        if value == 1:
+           rel.off()
+        if value == 2:
+           pass
+        if value == 3:
+           rel.on()
+        if value == 4:
+           pass
 
-    try:
-        while True:
-            if button.check():
-                if led.status():
-                    led.off()
-                    led2.on()
-                else:
-                    led.on()
-                    led2.off()            
 
-    except KeyboardInterrupt:
-        import RPi.GPIO as GPIO
-        GPIO.cleanup()
-    
 def api():
     app = Flask(__name__)
 
@@ -36,7 +35,20 @@ def api():
     for route in routes:
         app.add_url_rule(route.get_route(), view_func=route.as_view(route.get_route()))
     
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
 
 # GPIO.cleanup()
-api()
+# api()
+
+t = threading.Thread(name='manual', target=manual)
+t1 = threading.Thread(name='api', target=api)
+
+t.start()
+t1.start()
+
+try:
+   t.join()
+   t1.join()
+except KeyboardInterrupt:
+   import RPi.GPIO as GPIO
+   GPIO.cleanup()
