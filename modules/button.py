@@ -18,12 +18,13 @@ class Button(object):
         t = time.time()
         c = 0
         led = led_obj
-        while time.time()-t < 3:
+        while time.time()-t < 2:
             if self.check():
                led.on()
                while self.check():
                    pass
                c+=1
+               t = time.time()
                led.off()
                time.sleep(0.1)
         return c

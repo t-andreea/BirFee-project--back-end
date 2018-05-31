@@ -35,33 +35,36 @@ class Buzzer:
 
 
     def setup(self):
-	GPIO.setmode(GPIO.BOARD) # Numbers GPIOs by physical location
-	GPIO.setup(self.BuzzerPin, GPIO.OUT) # Set pins' mode is output
-	
-	self.Buzz = GPIO.PWM(self.BuzzerPin, 440) # 440 is initial frequency.
-	self.Buzz.start(50) # Start BuzzerPin pin with 50% duty ration
+        # GPIO.setmode(GPIO.BOARD) # Numbers GPIOs by physical location
+        GPIO.setup(self.BuzzerPin, GPIO.OUT) # Set pins' mode is output
+        
+        self.Buzz = GPIO.PWM(self.BuzzerPin, 440) # 440 is initial frequency.
 
 
     def play_song(self, song, beat):
-	for i in range(1, len(song)): # Play song 1
-	    self.Buzz.ChangeFrequency(song[i]) # Change the frequency along the song note
-	    time.sleep(beat[i] * 0.5) # delay a note for beat * 0.5s
+        for i in range(1, len(song)): # Play song 1
+            self.Buzz.ChangeFrequency(song[i]) # Change the frequency along the song note
+            time.sleep(beat[i] * 0.5) # delay a note for beat * 0.5s
 
 
     def play(self):
-	# while True:
-	print '\n Playing song 1...'
-	self.play_song(self.song_1, self.beat_1)
-	time.sleep(1) # Wait a second for next song.
-	 
-	print '\n\n Playing song 2...'
-	self.play_song(self.song_2, self.beat_2)
+        self.Buzz.start(50) # Start BuzzerPin pin with 50% duty ration
+        # while True:
+        print('\n Playing song 1...')
+        self.play_song(self.song_1, self.beat_1)
+        time.sleep(1) # Wait a second for next song.
+         
+        print('\n\n Playing song 2...')
+        self.play_song(self.song_2, self.beat_2)
 
+        self.Buzz.stop()
+
+    def stop(self):
+        self.Buzz.stop()
 
     def destory(self):
-	self.Buzz.stop() # Stop the BuzzerPin
-	GPIO.output(self.BuzzerPin, 1) # Set BuzzerPin pin to High
-	GPIO.cleanup() # Release resource   
+        GPIO.output(self.BuzzerPin, 1) # Set BuzzerPin pin to High
+        GPIO.cleanup() # Release resource   
 
 
 

@@ -21,7 +21,7 @@ class RelayRoute(MainRoute):
 
     def post(self):
         rel = Relay.get_instance(12)
-        led = Led(36)
+        led = Led(35)
         act = request.form['action']
         if act=='on':
             rel.on()
