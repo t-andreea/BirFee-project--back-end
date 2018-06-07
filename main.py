@@ -2,7 +2,8 @@
 import threading
 from flask import Flask
 from routes.sensor_route import SensorRoute
-from routes.relay_route import RelayRoute
+from routes.water_route import WaterRoute
+from routes.food_route import FoodRoute
 from routes.buzzer_route import BuzzerRoute
 from modules.relay import Relay
 from modules.led import Led
@@ -14,19 +15,27 @@ def sound():
     buzzer.play()
 
 def manual():
-    led = Led(35)
-    button = Button(37)
-    rel = Relay.get_instance(12)
+    led = Led(37)
+    fled = Led(19)
+    wled = Led(38)
+    button = Button(11)
+    food = Relay.get_instance(10)
+    water = Relay.get_instance(12)
     
     while True:
-        value = button.multi_checked(Led(7))
+        value = button.multi_checked(led)
         if value == 1:
-           rel.off()
+           water.off()
+           wled.off()
+           food.off()
+           fled.off()
            buzzer.stop()
         if value == 2:
-           pass
+           wled.on()
+           water.on()
         if value == 3:
-           rel.on()
+           fled.on()
+           food.on()
         if value == 4:
            t2 = threading.Thread(name='sound', target=sound)
            t2.start()
@@ -37,7 +46,8 @@ def api():
 
     routes = [
         SensorRoute(),
-	RelayRoute(),
+	WaterRoute(),
+        FoodRoute(),
         BuzzerRoute()
     ]
 

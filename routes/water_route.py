@@ -4,7 +4,7 @@ from modules.relay import Relay
 from modules.led import Led
 
 
-class RelayRoute(MainRoute):
+class WaterRoute(MainRoute):
 
     def __init__(self):
         super().__init__()
@@ -21,7 +21,7 @@ class RelayRoute(MainRoute):
 
     def post(self):
         rel = Relay.get_instance(12)
-        led = Led(35)
+        led = Led(38)
         act = request.form['action']
         if act=='on':
             rel.on()
