@@ -61,13 +61,9 @@ def automatic_feeder():
         return my_time
     
     while True:
-        time.sleep(30)
         now = datetime.datetime.now()
-        print(str(now.hour) + ':' + str(now.minute))
-        print(my_time)
-        print()
-        time.sleep(1)
-        if str(now.hour) + ':' + str(now.minute) == str(read_from_file):
+        
+        if str(now.hour) + ':' + str(now.minute) == str(read_from_file()):
            fled.on()
            food.on()
            wled.on()
@@ -78,6 +74,9 @@ def automatic_feeder():
            time.sleep(10)
            food.off()
            fled.off()
+           
+        time.sleep(30)
+        
 
 def api():
     app = Flask(__name__)
