@@ -10,9 +10,12 @@ from modules.led import Led
 from modules.button import Button
 from modules.buzzer import Buzzer
 
-buzzer = Buzzer(32)
+buzzer = Buzzer(33)
+
 def sound():
     buzzer.play()
+
+t2 = threading.Thread(name='sound', target=sound)
 
 def manual():
     led = Led(37)
@@ -37,7 +40,6 @@ def manual():
            fled.on()
            food.on()
         if value == 4:
-           t2 = threading.Thread(name='sound', target=sound)
            t2.start()
            
 

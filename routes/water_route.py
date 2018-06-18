@@ -29,7 +29,7 @@ class WaterRoute(MainRoute):
         else:
             rel.off()
             led.off()
-        return self._generate_response('The relay is ' + act)
+        return self._generate_response(act)
     
     def get_route(self):
         return '/water'

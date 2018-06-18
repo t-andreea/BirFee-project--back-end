@@ -5,6 +5,7 @@ class Buzzer:
 
     def __init__(self, pin):
         self.BuzzerPin = pin
+        self.__status = False
         
         CL = [0, 131, 147, 165, 175, 196, 211, 248] # Low C Note Frequency 
         CM = [0, 262, 294, 330, 350, 393, 441, 495] # Middle C Note Frequency
@@ -49,6 +50,8 @@ class Buzzer:
 
     def play(self):
         self.Buzz.start(50) # Start BuzzerPin pin with 50% duty ration
+        self.__status = True
+        
         # while True:
         print('\n Playing song 1...')
         self.play_song(self.song_1, self.beat_1)
@@ -58,9 +61,14 @@ class Buzzer:
         self.play_song(self.song_2, self.beat_2)
 
         self.Buzz.stop()
+        self.__status = False
 
     def stop(self):
         self.Buzz.stop()
+        self.__status = False
+
+    def status(self):
+        return self.__status
 
     def destory(self):
         GPIO.output(self.BuzzerPin, 1) # Set BuzzerPin pin to High
