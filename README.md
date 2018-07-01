@@ -1,5 +1,4 @@
-BirFee app
-This is my first python project using a Raspberry Pi!
+This is my first python project using a Raspberry Pi, BirFee!
 Requirements:
 click==6.7
 Flask==0.12.2
